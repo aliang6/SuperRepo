@@ -3,27 +3,11 @@
    HW 40 --Array of Grade 316
    2015-12-02 */
 
-
-/*****************************
- * SKELETON for
- * class SuperArray --  A wrapper class for an array. 
- * Maintains functionality:
- *  access value at index
- *  overwrite value at index
- *  report number of meaningful items
- * Adds functionality to std Java array:
- *  resizability
- *  ability to print meaningfully
- *  add item (at end)
- *  insert item
- *  remove item (while maintaining "left-justification")
- *****************************/
-
-public class SuperArray {
+public class SuperArray{
  
     //~~~~~INSTANCE VARS~~~~~
     //underlying container, or "core" of this data structure:
-    private int[] _data;
+    private Comparable[] _data;
 
     //position of last meaningful value
     private int _lastPos;
@@ -36,7 +20,7 @@ public class SuperArray {
     //default constructor – initializes 10-item array
     public SuperArray() 
     { 
-	_data = new int[10];
+	_data = new Comparable[10];
 	_lastPos = -1; //flag to indicate no lastpos yet
 	_size = 0;	
     }
@@ -61,7 +45,7 @@ public class SuperArray {
     //double capacity of this SuperArray
     private void expand() 
     { 
-	int[] temp = new int[ _data.length * 2 ];
+	Comparable[] temp = new Comparable[ _data.length * 2 ];
 	for( int i = 0; i < _data.length; i++ )
 	    temp[i] = _data[i];
 	_data = temp;
@@ -69,14 +53,14 @@ public class SuperArray {
 
 		
     //accessor -- return value at specified index
-    public int get( int index ) { return _data[index]; }
+    public Comparable get( int index ) { return _data[index]; }
 
 		
     //mutator -- set value at index to newVal, 
     //           return old value at index
-    public int set( int index, int newVal ) 
+    public Comparable set( int index, Comparable newVal ) 
     { 
- 	int temp = _data[index];
+ 	Comparable temp = _data[index];
 	_data[index] = newVal;
 	return temp;
     }
@@ -84,19 +68,19 @@ public class SuperArray {
 
     // ~~~~~~~~~~~~~~ PHASE II ~~~~~~~~~~~~~~
     //adds an item after the last item
-    public void add( int newVal ) {
+    public void add( Comparable newVal ) {
 
 	//Finds the index of the last meaningful value
 	int lastIndex = _data.length -1;
-	while (lastIndex > -1 && _data[lastIndex] == 0) {
+	while (lastIndex > -1 && _data[lastIndex] == null) {
 	    lastIndex -= 1;
 	}
 
 	//Index of the value after the last meaningful
 	lastIndex += 1;
 
-	//Declares a new int[]
-	int[] _dataAdded = new int[_data.length + 1];
+	//Declares a new Comparable[]
+	Comparable[] _dataAdded = new Comparable[_data.length + 1];
 
 	//Copies all _data to new int[] up to the last meaningful
 	int index;
@@ -123,8 +107,8 @@ public class SuperArray {
 
     //inserts an item at index
     //shifts existing elements to the right
-    public void add( int index, int newVal ) {
-	int[] _dataAdd = new int[_data.length + 1];
+    public void add( int index, Comparable newVal ) {
+	Comparable[] _dataAdd = new Comparable[_data.length + 1];
 	for(int beforeIndex = 0; beforeIndex < index; beforeIndex++){
 	    _dataAdd[beforeIndex] = _data[beforeIndex];
 	}
@@ -138,7 +122,7 @@ public class SuperArray {
     //removes the item at index
     //shifts elements left to fill in newly-empted slot
     public void remove( int index ) {
-	int[] _dataRemoved = new int[_data.length - 1];
+	Comparable[] _dataRemoved = new Comparable[_data.length - 1];
 	for(int beforeIndex = 0; beforeIndex < index; beforeIndex++){
 	    _dataRemoved[beforeIndex] = _data[beforeIndex];
 	}
@@ -151,18 +135,38 @@ public class SuperArray {
     //return number of meaningful items in _data
     public int size() {
 	for (int x = 0; x < _data.length; x++){
-	    if(_data[x] != 0){
+	    if(_data[x] != null){
 		_size +=1;
 	    }
 	}
 	return _size;
     }
 
+    //Returns the index at which the Comparable is at in the array. Returns -1 if not in array
+    public int linSearch(Comparable y){
+	int index = -1;
+	for(int x = 0; x < this.size(); x++){
+	    if ((_data[x]).compareTo(y) == 0){
+		index = x;
+	    }
+	}
+	return index;
+    }
 
+    //Returns whether the array is sorted or not
+    public boolean isSorted(){
+	boolean y = true;
+	for (int x = 0; x < this.size(); x++){
+	    if(_data[x].compareTo ( _data[x+1]) == 1){
+		y = false;
+	    }
+	}
+    }
+    
     //main method for testing
     public static void main( String[] args ) 
     {
-	SuperArray curtis = new SuperArray();
+	/*SuperArray curtis = new SuperArray();
 	System.out.println("Printing empty SuperArray curtis...");
 	System.out.println(curtis);
 
@@ -218,6 +222,16 @@ public class SuperArray {
 	  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 	//*****INSERT ANY ADDITIONAL TEST CALLS HERE*****
 
+	SuperArray x = new SuperArray();
+	Comparable Binary = new Binary(7);
+	Comparable Hexadecimal = new Hexadecimal(8);
+	Comparable Rational = new Rational(9,1);
+        x.add(0, Binary);
+	x.add(1, Hexadecimal);
+	x.add(2, Rational);
+	x.linSearch(Binary);
+	x.isSorted(); //Should be true
+	
     }//end main
 		
 }//end class

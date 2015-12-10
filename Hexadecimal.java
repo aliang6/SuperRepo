@@ -3,7 +3,7 @@
    HW 43 -- This or That
    2015-12-07 */
 
-public class Hexadecimal {
+public class Hexadecimal implements Comparable{
   
     private final static String HEXDIGITS = "0123456789ABCDEF"; 
     private int _decNum;
@@ -25,6 +25,16 @@ public class Hexadecimal {
     public Hexadecimal( String s ) {
         _hexNum = s;
 	_decNum = hexToDec(s);
+    }
+
+
+    public int getDecNum{
+	return _decNum;
+    }
+
+
+    public String getBinNum{
+	return _binNum;
     }
     
 
@@ -72,6 +82,14 @@ public class Hexadecimal {
     }
 
     public int compareTo( Object other ) {
+	if (!(other instanceof Comparable)){
+	    throw new ClassCastException ("\n ClassCastException");
+	}
+
+	if (other == null){
+	    throw new NullPointerException ("\n NullPointerException");
+	}
+	
         if (((Hexadecimal)other)._decNum == this._decNum){
 	    return 0;
 	}
@@ -103,8 +121,8 @@ public class Hexadecimal {
     public static void main( String[] args ) {
 
 	
-	  System.out.println();
-	  System.out.println( "Testing ..." );
+	System.out.println();
+	System.out.println( "Testing ..." );
 
 	  Hexadecimal b1 = new Hexadecimal(5);
 	  Hexadecimal b2 = new Hexadecimal(5);

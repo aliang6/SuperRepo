@@ -3,7 +3,7 @@
    HW 43 -- This or That
    2015-12-07 */
 
-public class Binary {
+public class Binary implements Comparable{
 
     private int _decNum;
     private String _binNum;
@@ -42,6 +42,15 @@ public class Binary {
     }
 
 
+    public int getDecNum{
+	return _decNum;
+    }
+
+    public String getBinNum{
+	return _binNum;
+    }
+    
+    
     /*=====================================
       String toString() -- returns String representation of this Object
       pre:  n/a
@@ -157,6 +166,14 @@ public class Binary {
       negative integer if this<input, positive integer otherwise
       =============================================*/
     public int compareTo( Object other ) {
+	if (!(other instanceof Comparable)){
+	    throw new ClassCastException ("\n ClassCastException");
+	}
+
+	if (other == null){
+	    throw new NullPointerException ("\n NullPointerException");
+	}
+	
         if (((Binary)other)._decNum == this._decNum){
 	    return 0;
 	}
@@ -166,6 +183,7 @@ public class Binary {
 	else{
 	    return -1;
 	}
+	
     }
 
 
